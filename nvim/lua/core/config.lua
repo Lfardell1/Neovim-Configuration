@@ -1,10 +1,7 @@
-
 -- Nvim-Tree Configuration
 require'nvim-tree'.setup {
   disable_netrw       = true,
   hijack_netrw        = true,
-  open_on_setup       = false,
-  ignore_ft_on_setup  = {},
   auto_reload_on_write = true,
   hijack_cursor       = false,
   update_cwd          = false,
@@ -29,11 +26,6 @@ require'nvim-tree'.setup {
   view = {
     width = 30,
     side = 'left',
-    auto_resize = false,
-    mappings = {
-      custom_only = false,
-      list = {}
-    }
   }
 }
 
@@ -119,10 +111,20 @@ local on_attach = function(client, bufnr)
   keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+
+  -- Autoformat on save (optional)
+  if client.server_capabilities.documentFormattingProvider then
+    vim.cmd [[
+      augroup LspAutocommands
+        autocmd! * <buffer>
+        autocmd BufWritePre <buffer> lua vim.lsp.buf.format { async = true }
+      augroup END
+    ]]
+  end
 end
 
 -- Setup language servers
-local servers = { 'pyright', 'tsserver', 'gopls', 'clangd' }
+local servers = { 'pyright','gopls', 'clangd' }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -144,8 +146,8 @@ for _, lsp in ipairs(servers) do
   }
 end
 
--- Inside your gopls setup
-lspconfig['gopls'].setup{
+-- Enhanced gopls configuration
+lspconfig['gopls'].setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
@@ -156,13 +158,32 @@ lspconfig['gopls'].setup{
         shadow = true,
       },
       staticcheck = true,
+      usePlaceholders = true,
+      codelenses = {
+        generate = true, -- Enable "go generate" lens
+        gc_details = true, -- Show garbage collection optimization details
+      },
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
     },
   },
   init_options = {
     usePlaceholders = true,
   },
   flags = {
+    debounce_text_changes = 150,
     allow_incremental_sync = true,
   },
-  cmd = { "gopls", "-v" }, -- Enable verbose logging
+  cmd = { "gopls", "serve" }, -- Start gopls server
 }
+
+-- Optional: Setup for debugging Go programs with Delve
+require('dap-go').setup()
+
