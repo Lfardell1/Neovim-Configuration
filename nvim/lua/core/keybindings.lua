@@ -1,14 +1,5 @@
 local keyset = vim.keymap.set
 
--- Gemini Chat
-
-
-
-
--- Cheetsheet
-
-local cheatsheet = require("cheatsheet")
-
 -- Leader key
 
 vim.g.mapleader = ' '
@@ -87,11 +78,4 @@ keyset('n', '<leader>wq', ':q<CR>')  -- Close current window
 
 -- Miscellaneous keybindings
 
-keyset('n', '<leader>h', ':lua OpenCheatsheet()<CR>', { noremap = true, silent = true })  -- Open Cheatsheet
-
 keyset('n', '<leader>q', ':close<CR>', { noremap = true, silent = true })  -- Close Cheatsheet
-
--- GPT Buddy
-vim.keymap.set("n", "<leader>gp", "<cmd>GPTPrompt<CR>", { desc = "Open GPT prompt input" })
-vim.keymap.set("n", "<leader>ga", "<cmd>GPTAnalyzeCode<CR>", { desc = "Analyze current buffer" })
-
