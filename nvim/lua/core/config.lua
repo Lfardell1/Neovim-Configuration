@@ -66,11 +66,6 @@ require('telescope').setup{
   }
 }
 
--- Load Telescope Extensions (if any)
--- require('telescope').load_extension('fzf') -- Example
---
--- Comment.nvim Configuration
-require('Comment').setup()
 -- Harpoon Configuration
 require("harpoon").setup({
   -- Your configuration comes here
@@ -187,3 +182,5 @@ lspconfig['gopls'].setup {
 -- Optional: Setup for debugging Go programs with Delve
 require('dap-go').setup()
 
+-- DAP UI setup
+require("dapui").setup()

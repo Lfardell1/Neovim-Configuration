@@ -36,13 +36,6 @@ keyset('n', '<leader>fg', ':Telescope live_grep<CR>')  -- Telescope live grep
 keyset('n', '<leader>fb', ':Telescope buffers<CR>')  -- Telescope buffers
 
 
--- Commenting
-
-keyset('n', '<leader>c', ':CommentToggle<CR>')  -- Toggle comment
-
-keyset('v', '<leader>c', ':CommentToggle<CR>')  -- Toggle comment in visual mode
-
-
 -- Code Navigation (Goto)
 
 keyset("n", "gd", "<Plug>(coc-definition)", {silent = true})  -- Go to definition

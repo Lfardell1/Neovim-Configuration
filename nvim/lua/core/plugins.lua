@@ -1,7 +1,7 @@
 -- Initialize plugin manager (vim-plug)
 local Plug = vim.fn['plug#']
 
-vim.call('plug#begin', 'C:\\Users\\Leon\\appdata\\local\\nvim\\plugins\\')
+vim.call('plug#begin', './plugins/')
 
 -- Core plugins
 Plug 'nvim-treesitter/nvim-treesitter'
@@ -15,6 +15,8 @@ Plug 'mattn/emmet-vim'
 
 -- Go development
 Plug 'fatih/vim-go'
+Plug 'leoluz/nvim-dap-go'
+
 
 -- Visual enhancements
 Plug 'gko/vim-coloresque'
@@ -50,5 +52,14 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 
 -- Dependency for Telescope
 Plug 'nvim-lua/plenary.nvim'
+
+-- Debug Adaptor 
+Plug 'mfussenegger/nvim-dap'
+
+-- DAP UI  
+Plug 'mfussenegger/nvim-dap'
+Plug 'nvim-neotest/nvim-nio'
+Plug 'rcarriga/nvim-dap-ui'
+
 
 vim.call('plug#end')
